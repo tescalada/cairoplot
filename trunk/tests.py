@@ -18,24 +18,19 @@ test_themes = 1
 
 
 if test_scatter_plot:
-    #Special data
-    data = [(50,10),(15,55),(10,70),(15,85),(30,90),(40,85),(50,70),(60,85),(70,90),(85,85),(90,70),(85,55),(50,10)]
-    cairoplot.scatter_plot ( 'scatter_0.svg', data = data, width = 500, height = 500, border = 20, axis = True, dots = 3, grid = True, 
-                             x_bounds=[0,100], y_bounds=[0,100], series_colors = [(1,0,0)] )
-
     #Default data
     data = [ (-2,10), (0,0), (0,15), (1,5), (2,0), (3,-10), (3,5) ]
     cairoplot.scatter_plot ( 'scatter_1_default.svg', data = data, width = 500, height = 500, border = 20, axis = True, grid = True )
     
     #lists of coordinates x,y
-    data = [[1,2,3,4,5],[1,1,1,1,1]]
+    data = [[1,2,3,4,5],[5,4,3,2,1]]
     cairoplot.scatter_plot ( 'scatter_2_lists.svg', data = data, width = 500, height = 500, border = 20, axis = True, grid = True )
-    
+
     #lists of coordinates x,y,z
-    data = [[0.5,1,2,3,4,5],[0.5,1,1,1,1,1],[10,6,10,20,10,6]]
+    data = [[[1,2,3,4,5],[2.5,2.5,2.5,2.5,2.5],[6,10,20,10,6]]]
     colors = [ (0,0,0,0.25), (1,0,0,0.75) ]
     cairoplot.scatter_plot ( 'scatter_3_lists.svg', data = data, width = 500, height = 500, border = 20, axis = True, discrete = True,
-                             grid = True, circle_colors = colors )    
+                             grid = True, x_bounds=(0,6), y_bounds=(0,5), circle_colors = colors ) 
     
     data = [(-1, -16, 12), (-12, 17, 11), (-4, 6, 5), (4, -20, 12), (13, -3, 21), (7, 14, 20), (-11, -2, 18), (19, 7, 18), (-10, -19, 15),
             (-17, -2, 6), (-9, 4, 10), (14, 11, 16), (13, -11, 18), (20, 20, 16), (7, -8, 15), (-16, 17, 16), (16, 9, 9), (-3, -13, 25),
@@ -43,7 +38,7 @@ if test_scatter_plot:
             (17, -15, 25), (-2, -8, 5), (5, 20, 20), (18, 20, 23), (-20, -16, 17), (-19, -2, 9), (-11, 19, 18), (17, 16, 12), (-5, -20, 15),
             (-20, -13, 10), (-3, 5, 20), (-1, 13, 17), (-11, -9, 11)]
     colors = [ (0,0,0,0.25), (1,0,0,0.75) ]
-    cairoplot.scatter_plot ( 'scatter_2_variable_radius.svg', data = data, width = 500, height = 500, border = 20, 
+    cairoplot.scatter_plot ( 'scatter_4_variable_radius.svg', data = data, width = 500, height = 500, border = 20, 
                              axis = True, discrete = True, dots = 2, grid = True, 
                              x_title = "x axis", y_title = "y axis", circle_colors = colors )
     
@@ -56,7 +51,7 @@ if test_scatter_plot:
     ery = [5*random.random() for x in t]
     data = {"exp" : [t,f], "cos" : [t,g], "sin" : [t,h]}
     series_colors = [ (1,0,0), (0,0,0), (0,0,1) ]
-    cairoplot.scatter_plot ( 'cross_r_exponential.svg', data = data, errorx = [erx,erx], errory = [ery,ery], width = 800, height = 600, border = 20, 
+    cairoplot.scatter_plot ( 'scatter_5_error_bars.svg', data = data, errorx = [erx,erx], errory = [ery,ery], width = 800, height = 600, border = 20, 
                              axis = True, discrete = False, dots = 5, grid = True, 
                              x_title = "t", y_title = "f(t) g(t)", series_legend=True, series_colors = series_colors )
 
@@ -230,13 +225,13 @@ if test_gantt_chart :
     
 if test_themes :    
     data = [[1,2,3,4,5,6,7,8,9,10,11,12,13,14]]
-    cairoplot.vertical_bar_plot ( 'bar_1_color_themes.svg', data, 400, 300, border = 20, grid = True, colors="rainbow" )
+    cairoplot.vertical_bar_plot ( 'color_themes_1_bar.svg', data, 400, 300, border = 20, grid = True, colors="rainbow" )
     
     data = [[1,2,3,4,5,6,7,8,9,10,11,12,13,14]]
-    cairoplot.vertical_bar_plot ( 'bar_2_color_themes.svg', data, 400, 300, background = "black light_gray", border = 20, grid = True, colors="rainbow" )
+    cairoplot.vertical_bar_plot ( 'color_themes_2_bar.svg', data, 400, 300, background = "black gray", border = 20, grid = True, colors="rainbow" )
     
     data = [ lambda x : 1, lambda y : y**2, lambda z : -z**2 ]
-    cairoplot.function_plot( 'function_color_themes.svg', data, 400, 300, grid = True, series_colors = ["red", "orange", "yellow"], step = 0.1 )
+    cairoplot.function_plot( 'color_themes_function.svg', data, 400, 300, grid = True, series_colors = ["red", "orange", "yellow"], step = 0.1 )
     
     #Scatter x DotLine
     t = [x*0.1 for x in range(0,40)]
@@ -247,6 +242,6 @@ if test_themes :
     ery = [5*random.random() for x in t]
     data = {"exp" : [t,f], "cos" : [t,g], "sin" : [t,h]}
     series_colors = [ (1,0,0), (0,0,0) ]
-    cairoplot.scatter_plot ( 'scatter_color_themes.svg', data = data, errorx = [erx,erx], errory = [ery,ery], width = 800, height = 600, border = 20, 
+    cairoplot.scatter_plot ( 'color_themes_scatter.svg', data = data, errorx = [erx,erx], errory = [ery,ery], width = 800, height = 600, border = 20, 
                              axis = True, discrete = False, dots = 5, grid = True, 
                              x_title = "t", y_title = "f(t) g(t)", series_legend=True, series_colors = ["red", "blue", "orange"])
