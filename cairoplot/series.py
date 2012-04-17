@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Serie.py
+# series.py
 #
-# Copyright (c) 2008 Magnun Leno da Silva
+# Copyright (c) 2012 Magnun Leno da Silva
 #
 # Author: Magnun Leno da Silva <magnun.leno@gmail.com>
 #
@@ -24,12 +24,11 @@
 
 # Contributor: Rodrigo Moreiro Araujo <alf.rodrigo@gmail.com>
 
-#import cairoplot
 import doctest
 
-NUMTYPES = (int, float, long)
-LISTTYPES = (list, tuple)
-STRTYPES = (str, unicode)
+NUM_TYPES = (int, float, long)
+LIST_TYPES = (list, tuple)
+STR_TYPES = (str, unicode)
 FILLING_TYPES = ['linear', 'solid', 'gradient']
 DEFAULT_COLOR_FILLING = 'solid'
 #TODO: Define default color list
@@ -37,23 +36,12 @@ DEFAULT_COLOR_LIST = None
 
 class Data(object):
     '''
-        Class that models the main data structure.
-        It can hold:
-         - a number type (int, float or long)
-         - a tuple, witch represents a point and can have 2 or 3 items (x,y,z)
-         - if a list is passed it will be converted to a tuple.
-         
-        obs: In case a tuple is passed it will convert to tuple
-    '''
-    def __init__(self, data=None, name=None, parent=None):
-        '''
-            Starts main atributes from the Data class
-            @name    - Name for each point;
-            @content - The real data, can be an int, float, long or tuple, which
-                       represents a point (x,y) or (x,y,z);
-            @parent  - A pointer that give the data access to it's parent.
-            
-            Usage:
+        Model the smallest data structure which might contain:
+        
+        - A number (int, float or long);
+        - A tuple, representing a point with 2 or 3 items (x,y,z).
+        
+        Common usage:
             >>> d = Data(name='empty'); print d
             empty: ()
             >>> d = Data((1,1),'point a'); print d
@@ -64,158 +52,142 @@ class Data(object):
             point c: (2, 3)
             >>> d = Data(12, 'simple value'); print d
             simple value: 12
-        '''
-        # Initial values
-        self.__content = None
-        self.__name = None
-        
-        # Setting passed values
-        self.parent = parent
+    '''
+    def __init__(self, content=None, name=None, parent=None):
+        '''Initiates the objects variables.'''
+        self.content = content
         self.name = name
-        self.content = data
+        self._parent = parent
         
     # Name property
-    @apply
-    def name():
-        doc = '''
-            Name is a read/write property that controls the input of name.
-             - If passed an invalid value it cleans the name with None
-             
-            Usage:
-            >>> d = Data(13); d.name = 'name_test'; print d
-            name_test: 13
-            >>> d.name = 11; print d
-            13
-            >>> d.name = 'other_name'; print d
-            other_name: 13
-            >>> d.name = None; print d
-            13
-            >>> d.name = 'last_name'; print d
-            last_name: 13
-            >>> d.name = ''; print d
-            13
+    @property
+    def name(self):
         '''
-        def fget(self):
-            '''
-                returns the name as a string
-            '''
-            return self.__name
+        Property to validate the object's name.
         
-        def fset(self, name):
-            '''
-                Sets the name of the Data
-            '''
-            if type(name) in STRTYPES and len(name) > 0:
-                self.__name = name
-            else:
-                self.__name = None
-                
-        
-        
-        return property(**locals())
+            >>> d = Data(13, 'data_name'); print d
+            data_name: 13
+
+        :raises TypeError: If the input's type is not in :const:`STR_TYPES`
+        '''
+        return self._name
+    
+    @name.setter
+    def name(self, name):
+        '''Sets the name of the Data'''
+        if type(name) in STR_TYPES and len(name) > 0:
+            self._name = name
+        elif name is None:
+            self._name = None
+        else:
+            raise TypeError, "Data name must be of str or unicode type."
+            self._name = None
 
     # Content property
-    @apply
-    def content():
-        doc = '''
-            Content is a read/write property that validate the data passed
-            and return it.
-            
-            Usage:
-            >>> d = Data(); d.content = 13; d.content
-            13
-            >>> d = Data(); d.content = (1,2); d.content
-            (1, 2)
-            >>> d = Data(); d.content = (1,2,3); d.content
-            (1, 2, 3)
-            >>> d = Data(); d.content = [1,2,3]; d.content
-            (1, 2, 3)
-            >>> d = Data(); d.content = [1.5,.2,3.3]; d.content
-            (1.5, 0.20000000000000001, 3.2999999999999998)
+    @property
+    def content(self):
         '''
-        def fget(self):
-            '''
-                Return the content of Data
-            '''
-            return self.__content
+        Property to validate the object's content.
+        
+            >>> d = Data(13); print d
+            13
+            >>> d = Data((1,2)); print d
+            (1, 2)
+            >>> d = Data((1,2,3)); print d
+            (1, 2, 3)
+            >>> d = Data([1,2,3]); print d
+            (1, 2, 3)
+        
+        :raises TypeError: If the input's type is not in :const:`NUM_TYPES` or :const:`LIST_TYPES`. Also, if the input's type is from :const:`LIST_TYPES` but its values' types are not in :const:`NUM_TYPES` or its length is not two or three.
+        '''
+        return self._content
 
-        def fset(self, data):
-            '''
-                Ensures that data is a valid tuple/list or a number (int, float
-                or long)
-            '''
-            # Type: None
-            if data is None:
-                self.__content = None
+    @content.setter
+    def content(self, content):
+        '''
+        Ensures that content is a valid tuple/list or a number (int, float
+        or long).
+        '''
+        # Type: None
+        if content is None:
+            self._content = None
+            return
+        
+        # Type: Int or Float
+        elif type(content) in NUM_TYPES:
+            self._content = content
+        
+        # Type: List or Tuple
+        elif type(content) in LIST_TYPES:
+            # Ensures the correct size
+            if len(content) not in (2, 3):
+                raise TypeError, "Content (as list/tuple) must have two or three items."
                 return
-            
-            # Type: Int or Float
-            elif type(data) in NUMTYPES:
-                self.__content = data
-            
-            # Type: List or Tuple
-            elif type(data) in LISTTYPES:
-                # Ensures the correct size
-                if len(data) not in (2, 3):
-                    raise TypeError, "Data (as list/tuple) must have 2 or 3 items"
-                    return
-                    
-                # Ensures that all items in list/tuple is a number
-                isnum = lambda x : type(x) not in NUMTYPES
-                    
-                if max(map(isnum, data)):
-                    # An item in data isn't an int or a float
-                    raise TypeError, "All content of data must be a number (int or float)"
-                    
-                # Convert the tuple to list
-                if type(data) is list:
-                    data = tuple(data)
-                    
-                # Append a copy and sets the type
-                self.__content = data[:]
-            
-            # Unknown type!
-            else:
-                self.__content = None
-                raise TypeError, "Data must be an int, float or a tuple with two or three items"
-                return
-            
-        return property(**locals())
-
+                
+            # Ensures that all items in list/tuple are numbers
+            is_num = lambda x : type(x) not in NUM_TYPES
+                
+            if max(map(is_num, content)):
+                # An item's type in content isn't int, float or long
+                raise TypeError, "All content must be a number (int, float or long)"
+                
+            # Convert tuples to lists
+            if type(content) is list:
+                content = tuple(content)
+                
+            # Append a copy
+            self._content = content[:]
+        
+        # Unknown type!
+        else:
+            self._content = None
+            raise TypeError, "Content must be int, float, long or atuple with two or three items"
+            return
     
     def clear(self):
-        '''
-            Clear the all Data (content, name and parent)
-        '''
+        '''Clear all object's variables (content, name and parent).'''
         self.content = None
         self.name = None
-        self.parent = None
-        
+        self._parent = None
+
     def copy(self):
-        '''
-            Returns a copy of the Data structure
-        '''
+        '''Return a copy of the Data structure'''
         # The copy
         new_data = Data()
         if self.content is not None:
-            # If content is a point
+            # If content is a tuple
             if type(self.content) is tuple:
-                new_data.__content = self.content[:]
-                
+                new_data.content = self.content[:]
             # If content is a number
             else:
-                new_data.__content = self.content
+                new_data.content = self.content
                 
         # If it has a name
         if self.name is not None:
-            new_data.__name = self.name
+            new_data.name = self.name
             
         return new_data
-    
+
+    def __eq__(self, other_data):
+        '''Compare Data variables'''
+        #TODO: Should we compare parent values?
+        return self.name == other_data.name and \
+               self.content == other_data.content
+
+    def len(self):
+        '''
+            Return the length of the content.
+
+            :return: **1**, if content is a number, **length** if content is a tuple or **0** if content's None.
+        '''
+        if self.content is None:
+            return 0
+        elif type(self.content) in NUMTYPES:
+            return 1
+        return len(self.content)
+
     def __str__(self):
-        '''
-            Return a string representation of the Data structure
-        '''
+        '''Return a string representation of the Data object'''
         if self.name is None:
             if self.content is None:
                 return ''
@@ -225,21 +197,6 @@ class Data(object):
                 return self.name+": ()"
             return self.name+": "+str(self.content)
 
-    def __len__(self):
-        '''
-            Return the length of the Data.
-             - If it's a number return 1;
-             - If it's a list return it's length;
-             - If its None return 0.
-        '''
-        if self.content is None:
-            return 0
-        elif type(self.content) in NUMTYPES:
-            return 1
-        return len(self.content)
-    
-    
-    
 
 class Group(object):
     '''
