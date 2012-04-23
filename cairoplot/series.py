@@ -24,12 +24,10 @@
 
 # Contributor: Rodrigo Moreiro Araujo <alf.rodrigo@gmail.com>
 
-import doctest
-
 NUM_TYPES = (int, float, long)
 LIST_TYPES = (list, tuple)
 STR_TYPES = (str, unicode)
-FILLING_TYPES = ['linear', 'solid', 'gradient']
+FILLING_TYPES = ['solid', 'radial', 'horizontal', 'vertical']
 DEFAULT_COLOR_FILLING = 'solid'
 #TODO: Define default color list
 DEFAULT_COLOR_LIST = None
@@ -174,7 +172,7 @@ class Data(object):
         return self.name == other_data.name and \
                self.content == other_data.content
 
-    def len(self):
+    def __len__(self):
         '''
             Return the length of the content.
 
