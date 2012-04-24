@@ -13,7 +13,7 @@ Series constants
 The constants defined in this module are:
 
 .. data:: NUM_TYPES
-.. data:: LIST_TYPES
+.. data:: DATA_TYPES
 .. data:: STR_TYPES
 .. data:: FILLING_TYPES
 .. data:: DEFAULT_COLOR_FILLING
@@ -23,4 +23,9 @@ Data class
 ----------------
 
 .. autoclass:: Data
+    :members:
+
+Series class
+----------------
+.. autoclass:: Series
     :members:
