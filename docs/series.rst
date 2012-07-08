@@ -21,7 +21,6 @@ The constants defined in this module are:
 
 Data class
 ----------------
-
 .. autoclass:: Data
     :members:
 

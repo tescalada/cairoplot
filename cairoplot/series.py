@@ -32,13 +32,14 @@ DEFAULT_COLOR_FILLING = 'solid'
 #TODO: Define default color list
 DEFAULT_COLOR_LIST = None
 
+
 class Data(object):
     '''
         Model the smallest data structure which might contain:
-        
+
         - A number (int, float or long);
         - A tuple representing a point with 2 or 3 items (x,y,z).
-        
+
         Common usage:
             >>> d = Data(name='simple value', 1); print d
             empty: 1
@@ -47,7 +48,7 @@ class Data(object):
             >>> d = Data('point b', (1,2,3)); print d
             point b: (1, 2, 3)
     '''
-    def __init__(self, name = None, content = None):
+    def __init__(self, name=None, content=None):
         '''Initiate the objects variables.'''
         self.content = content
         self.name = name
@@ -56,14 +57,14 @@ class Data(object):
     def content(self):
         '''
         Property to validate the object's content.
-        
+
             >>> d = Data(content = 13); print d
             13
             >>> d = Data(content = (1,2)); print d
             (1, 2)
             >>> d = Data(content = (1,2,3)); print d
             (1, 2, 3)
-        
+
         :raises TypeError: If the input's type is not in :const:`DATA_TYPES`. Also, if the input's type is a tuple but its values' types are not in :const:`NUM_TYPES` or its length is not two or three.
         '''
         return self._content
@@ -78,40 +79,40 @@ class Data(object):
         # Type: Int or Float
         elif type(content) in NUM_TYPES:
             self._content = content
-        
+
         # Type: Tuple
         elif type(content) is tuple:
             # Ensures the correct size
             if len(content) not in (2, 3):
-                raise TypeError, "Content representing points must have two or three items."
-                
+                raise TypeError("Content representing points must have two or three items.")
+
             # Ensures that all items in tuple are numbers
-            is_num = lambda x : type(x) not in NUM_TYPES
-                
+            is_num = lambda x: type(x) not in NUM_TYPES
+
             if max(map(is_num, content)):
                 # An item's type isn't int, float or long
-                raise TypeError, "All content must be a number (int, float or long)"
+                raise TypeError("All content must be a number (int, float or long)")
             # Append a copy
             self._content = content[:]
-        
+
         # Unknown type!
         else:
             self._content = 0
-            raise TypeError, "Content must be int, float, long or a tuple with two or three items"
+            raise TypeError("Content must be int, float, long or a tuple with two or three items")
 
     # Name property
     @property
     def name(self):
         '''
         Property to validate the object's name.
-        
+
             >>> d = Data('data_name', 13); print d
             data_name: 13
 
         :raises TypeError: If the input's type is not in :const:`STR_TYPES`
         '''
         return self._name
-    
+
     @name.setter
     def name(self, name):
         '''Sets the name of the Data'''
@@ -121,8 +122,7 @@ class Data(object):
             self._name = None
         else:
             self._name = None
-            raise TypeError, "Data name must be string or unicode."
-
+            raise TypeError("Data name must be string or unicode.")
 
     def clear(self):
         '''Sets name to None and content to 0.'''
@@ -156,7 +156,7 @@ class Data(object):
 
             :return: **1**, if content is a number or **length** if a tuple.
         '''
-        if type(self.content) in NUMTYPES:
+        if type(self.content) in NUM_TYPES:
             return 1
         return len(self.content)
 
@@ -165,22 +165,24 @@ class Data(object):
         if self.name is None:
             return str(self.content)
         else:
-            return self.name+": "+str(self.content)
+            return self.name + ": " + str(self.content)
+
 
 class Series(object):
     '''
         Model a list of values that must be either:
-        
+
         - Numbers (int, float or long);
         - Tuples representing points with 2 or 3 items (x,y,z).
-        
+
         Common usage:
             >>> s = Series("number_series", [1,2,3,4,5]); print s
             number_series ['1', '2', '3', '4', '5']
             >>> s = Series("point_series", [(1,1,1), (2,2,2), (3,3,3)]); print s
             point_series ['(1, 1, 1)', '(2, 2, 2)', '(3, 3, 3)']
     '''
-    def __init__(self, name = None, content = None):
+
+    def __init__(self, name=None, content=None):
         '''Initiate the objects variables.'''
         self.name = name
         self.content = content
@@ -189,12 +191,12 @@ class Series(object):
     def content(self):
         '''
         Property to validate the series.
-        
-            >>> s = Series(content = [1,2,3,4,5]); print s 
+
+            >>> s = Series(content = [1,2,3,4,5]); print s
             ['1', '2', '3', '4', '5']
             >>> s = Series(content = [(1,1,1), (2,2,2), (3,3,3)]); print s
             ['(1, 1, 1)', '(2, 2, 2)', '(3, 3, 3)']
-        
+
         :raises TypeError: If the input's is not a list or if the list contains tuples and numbers (int, float or long) mixed.
         '''
         return self._content
@@ -202,27 +204,23 @@ class Series(object):
     @content.setter
     def content(self, content):
         '''Ensure that content is a list of numbers (int, float or long) or tuples. Lists containing Data objects along the primitive types are also accepted if they have the same length.'''
-        is_num = lambda x : type(x) in NUM_TYPES
-        is_tuple = lambda x : type(x) is tuple
-        
+        is_num = lambda x: type(x) in NUM_TYPES
+        is_tuple = lambda x: type(x) is tuple
+
         # If content is None
         if content is None:
             self._content = []
-        
         # If content is not a List
         elif type(content) is not list:
             self._content = []
-            raise TypeError, "Series must be a list containing numbers (int, float or long) or 2 or 3 dimensions tuples."
-
+            raise TypeError("Series must be a list containing numbers (int, float or long) or 2 or 3 dimensions tuples.")
         # If content is an empty list
         elif len(content) == 0:
             self._content = []
-
         # If content contains numbers and tuples
         elif max(map(is_num, content)) and max(map(is_tuple, content)):
             # Content contains numbers and tuples
-            raise TypeError, "Series must contain either a list of numbers (int, float or long) or 2 or 3 dimensions tuples. Not both types."
-
+            raise TypeError("Series must contain either a list of numbers (int, float or long) or 2 or 3 dimensions tuples. Not both types.")
         #Content is either a list of points or a list of numbers
         else:
             self._content = []
@@ -230,7 +228,7 @@ class Series(object):
                 if type(item) is Data:
                     self._content.append(item.copy())
                 else:
-                    self._content.append(Data(content = item))
+                    self._content.append(Data(content=item))
 
     # Name property
     @property
@@ -243,7 +241,7 @@ class Series(object):
         :raises TypeError: If the input's type is not in :const:`STR_TYPES`
         '''
         return self._name
-    
+
     @name.setter
     def name(self, name):
         '''Sets the name of the Data'''
@@ -253,7 +251,7 @@ class Series(object):
             self._name = None
         else:
             self._name = None
-            raise TypeError, "Data name must be string or unicode."
+            raise TypeError("Data name must be string or unicode.")
 
     def clear(self):
         '''Set name to None and content to [].'''
