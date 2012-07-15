@@ -35,16 +35,14 @@ DEFAULT_COLOR_LIST = None
 
 class Data(object):
     '''
-        Model the smallest data structure which might contain:
-
-        - A number (int, float or long);
-        - A tuple representing a point with 2 or 3 items (x,y,z).
+        Model the smallest data structure.
+        Will always contain a tuple representing a tridimensional point.
 
         Common usage:
             >>> d = Data(name='simple value', 1); print d
-            empty: 1
+            empty: (1, 0, 0)
             >>> d = Data('point a', (1,1)); print d
-            point a: (1, 1)
+            point a: (1, 1, 0)
             >>> d = Data('point b', (1,2,3)); print d
             point b: (1, 2, 3)
     '''
@@ -59,9 +57,9 @@ class Data(object):
         Property to validate the object's content.
 
             >>> d = Data(content = 13); print d
-            13
+            (13, 0, 0)
             >>> d = Data(content = (1,2)); print d
-            (1, 2)
+            (1, 2, 0)
             >>> d = Data(content = (1,2,3)); print d
             (1, 2, 3)
 
@@ -78,7 +76,7 @@ class Data(object):
 
         # Type: Int or Float
         elif type(content) in NUM_TYPES:
-            self._content = content
+            self._content = (content, 0, 0)
 
         # Type: Tuple
         elif type(content) is tuple:
@@ -92,8 +90,12 @@ class Data(object):
             if max(map(is_num, content)):
                 # An item's type isn't int, float or long
                 raise TypeError("All content must be a number (int, float or long)")
-            # Append a copy
-            self._content = content[:]
+            # Create 3D point from 2D value
+            if len(content) == 2:
+                self._content = (content[0], content[1], 0)
+            # Create 3D point from 3D value
+            elif len(content) == 3:
+                self._content = content[:]
 
         # Unknown type!
         else:
@@ -136,12 +138,7 @@ class Data(object):
         if self.name is not None:
             new_data.name = self.name
 
-        # If content is a tuple
-        if type(self.content) is tuple:
-            new_data.content = self.content[:]
-        # If content is a number
-        else:
-            new_data.content = self.content
+        new_data.content = self.content[:]
 
         return new_data
 
@@ -156,8 +153,6 @@ class Data(object):
 
             :return: **1**, if content is a number or **length** if a tuple.
         '''
-        if type(self.content) in NUM_TYPES:
-            return 1
         return len(self.content)
 
     def __str__(self):
@@ -176,8 +171,8 @@ class Series(object):
         - Tuples representing points with 2 or 3 items (x,y,z).
 
         Common usage:
-            >>> s = Series("number_series", [1,2,3,4,5]); print s
-            number_series ['1', '2', '3', '4', '5']
+            >>> s = Series("number_series", [1,2,3]); print s
+            number_series ['(1, 0, 0)', '(2, 0, 0)', '(3, 0, 0)']
             >>> s = Series("point_series", [(1,1,1), (2,2,2), (3,3,3)]); print s
             point_series ['(1, 1, 1)', '(2, 2, 2)', '(3, 3, 3)']
     '''
@@ -192,9 +187,9 @@ class Series(object):
         '''
         Property to validate the series.
 
-            >>> s = Series(content = [1,2,3,4,5]); print s
-            ['1', '2', '3', '4', '5']
-            >>> s = Series(content = [(1,1,1), (2,2,2), (3,3,3)]); print s
+            >>> s = Series(content=[1,2,3]); print s
+            ['(1, 0, 0)', '(2, 0, 0)', '(3, 0, 0)']
+            >>> s = Series(content=[(1,1,1), (2,2,2), (3,3,3)]); print s
             ['(1, 1, 1)', '(2, 2, 2)', '(3, 3, 3)']
 
         :raises TypeError: If the input's is not a list or if the list contains tuples and numbers (int, float or long) mixed.
@@ -235,8 +230,8 @@ class Series(object):
     def name(self):
         '''
         Property to validate the object's name.
-            >>> s = Series("number_series", [1,2,3,4,5]); print s
-            number_series ['1', '2', '3', '4', '5']
+            >>> s = Series("number_series", [1,2,3]); print s
+            number_series ['(1, 0, 0)', '(2, 0, 0)', '(3, 0, 0)']
 
         :raises TypeError: If the input's type is not in :const:`STR_TYPES`
         '''
