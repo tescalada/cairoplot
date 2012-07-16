@@ -1,5 +1,5 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../cairoplot'))
+sys.path.insert(0, os.path.abspath(os.getcwd()))
 
-import series
+from cairoplot import series
