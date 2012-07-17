@@ -1,7 +1,7 @@
-include docs/Makefile
-
+BUILDDIR = build
 PYTHON_VER := $(word 1,$(wordlist 2,4,$(subst ., ,$(shell python --version 2>&1))))
 PYTHON=python
+
 ifeq ($(PYTHON_VER),3)
 	PYTHON = python2
 endif
@@ -25,5 +25,6 @@ install:
 
 clean: 
 	@echo "»»» Cleaning..."
-	@rm -rf build
+	@rm -rf $(BUILDDIR)
 
+include docs/Makefile
