@@ -12,27 +12,27 @@ Official site: [CairoPlot](http://cairoplot.sourceforge.net/index.html)
 
 Some Plotting Demos
 -------------------
-![Functions Plot Demo](raw/develop/demo-graphs/color_themes_function.png)
+![Functions Plot Demo](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/color_themes_function.png)
 
-![Function Plot Demo 2](raw/develop/demo-graphs/function_3_labels.png)
+![Function Plot Demo 2](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/function_3_labels.png)
 
-![Scatter Plot Demo](raw/develop/demo-graphs/color_themes_scatter.png)
+![Scatter Plot Demo](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/color_themes_scatter.png)
 
-![Scatter Plot Demo 2](raw/develop/demo-graphs/scatter_4_variable_radius.png)
+![Scatter Plot Demo 2](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/scatter_4_variable_radius.png)
 
-![Donut PlotDemo](raw/develop/demo-graphs/donut_3_background.png)
+![Donut PlotDemo](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/donut_3_background.png)
 
-![Gantt PlotDemo](raw/develop/demo-graphs/gantt_1_default.png)
+![Gantt PlotDemo](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/gantt_1_default.png)
 
-![Horizontal Bar PlotDemo](raw/develop/demo-graphs/hbar_0_dictionary.png)
+![Horizontal Bar PlotDemo](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/hbar_0_dictionary.png)
 
-![Horizontal Stack Bar PlotDemo](raw/develop/demo-graphs/hbar_10_stack.png)
+![Horizontal Stack Bar PlotDemo](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/hbar_10_stack.png)
 
-![Pie PlotDemo](raw/develop/demo-graphs/pie_3_background.png)
+![Pie PlotDemo](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/pie_3_background.png)
 
-![Vertical Bar PlotDemo](raw/develop/demo-graphs/vbar_2_rounded.png)
+![Vertical Bar PlotDemo](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/vbar_2_rounded.png)
 
-![Vertical Bar Plot Demo 2](raw/develop/demo-graphs/vbar_8_hy_labels.png)
+![Vertical Bar Plot Demo 2](https://github.com/magnunleno/cairoplot/raw/develop/demo-graphs/vbar_8_hy_labels.png)
 
 
 Some Legal Stuff
