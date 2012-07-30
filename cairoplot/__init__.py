@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# context.py
+# __init__.py
 #
 # Copyright (c) 2012 CairoPlot Team
 #
@@ -20,8 +20,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 
-import os
-import sys
-sys.path.insert(0, os.path.abspath(os.getcwd()))
+from cairoplot import *
 
-from cairoplot import series
+__all__ = ["cairoplot"]

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+#
 # series_tests.py
 #
 # Copyright (c) 2012 Rodrigo Moreira Araujo
 #
-# Author: Rodrigo Moreira Araujo <alf.rodrigo@gmail.com>
+# Author: Rodrigo Moreira Araujo <alf [dot] rodrigo [at] gmail [dot] com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public License

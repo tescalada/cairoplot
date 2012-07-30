@@ -13,7 +13,9 @@ setup(
         websites and papers.
         ''',
     name='CairoPlot',
-    py_modules=['cairoplot','series'],
+    packages=['cairoplot'],
+    author='Rodrigo Araujo',
+    author_email='cairoplot [at] googlegroups [dot] com',
     url='http://rodrigoaraujo01.github.com/cairoplot/',
     version='1.2',
     )

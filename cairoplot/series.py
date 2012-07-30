@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+#
 # series.py
 #
-# Copyright (c) 2012 Magnun Leno da Silva
+# Copyright (c) 2012 CairoPlot Team
 #
-# Author: Magnun Leno da Silva <magnun.leno@gmail.com>
+# Author: Magnun Leno da Silva <magnun [at] codecommunity [dot] org>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public License
@@ -22,7 +22,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 
-# Contributor: Rodrigo Moreiro Araujo <alf.rodrigo@gmail.com>
+# Contributor: Rodrigo Moreiro Araujo <alf [dot] rodrigo [at] gmail [dot] com>
 
 NUM_TYPES = (int, float, long)
 DATA_TYPES = (int, float, long, tuple)
