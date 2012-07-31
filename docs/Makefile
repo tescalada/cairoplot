@@ -5,50 +5,51 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
-DOCS_BUILDDIR  = $(BUILDDIR)/docs/
+DOCS_BUILDDIR = $(BUILDDIR)/docs
+DOCS_SRC      = docs
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
-ALLSPHINXOPTS   = -d $(DOCS_BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
+ALLSPHINXOPTS   = -d $(DOCS_BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS)
 # the i18n builder cannot share the environment and doctrees with the others
 I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 .PHONY: help html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext doc-teste
 
 html:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/html
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(DOCS_BUILDDIR)/html."
 
 dirhtml:
-	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/dirhtml
+	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/dirhtml
 	@echo
 	@echo "Build finished. The HTML pages are in $(DOCS_BUILDDIR)/dirhtml."
 
 singlehtml:
-	$(SPHINXBUILD) -b singlehtml $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/singlehtml
+	$(SPHINXBUILD) -b singlehtml $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/singlehtml
 	@echo
 	@echo "Build finished. The HTML page is in $(DOCS_BUILDDIR)/singlehtml."
 
 pickle:
-	$(SPHINXBUILD) -b pickle $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/pickle
+	$(SPHINXBUILD) -b pickle $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/pickle
 	@echo
 	@echo "Build finished; now you can process the pickle files."
 
 json:
-	$(SPHINXBUILD) -b json $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/json
+	$(SPHINXBUILD) -b json $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/json
 	@echo
 	@echo "Build finished; now you can process the JSON files."
 
 htmlhelp:
-	$(SPHINXBUILD) -b htmlhelp $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/htmlhelp
+	$(SPHINXBUILD) -b htmlhelp $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/htmlhelp
 	@echo
 	@echo "Build finished; now you can run HTML Help Workshop with the" \
 	      ".hhp project file in $(DOCS_BUILDDIR)/htmlhelp."
 
 qthelp:
-	$(SPHINXBUILD) -b qthelp $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/qthelp
+	$(SPHINXBUILD) -b qthelp $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/qthelp
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(DOCS_BUILDDIR)/qthelp, like this:"
@@ -57,7 +58,7 @@ qthelp:
 	@echo "# assistant -collectionFile $(DOCS_BUILDDIR)/qthelp/CairoPlot.qhc"
 
 devhelp:
-	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/devhelp
+	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
@@ -66,63 +67,63 @@ devhelp:
 	@echo "# devhelp"
 
 epub:
-	$(SPHINXBUILD) -b epub $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/epub
+	$(SPHINXBUILD) -b epub $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/epub
 	@echo
 	@echo "Build finished. The epub file is in $(DOCS_BUILDDIR)/epub."
 
 latex:
-	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/latex
+	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/latex
 	@echo
 	@echo "Build finished; the LaTeX files are in $(DOCS_BUILDDIR)/latex."
 	@echo "Run \`make' in that directory to run these through (pdf)latex" \
 	      "(use \`make latexpdf' here to do that automatically)."
 
 latexpdf:
-	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/latex
+	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/latex
 	@echo "Running LaTeX files through pdflatex..."
 	$(MAKE) -C $(DOCS_BUILDDIR)/latex all-pdf
 	@echo "pdflatex finished; the PDF files are in $(DOCS_BUILDDIR)/latex."
 
 text:
-	$(SPHINXBUILD) -b text $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/text
+	$(SPHINXBUILD) -b text $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/text
 	@echo
 	@echo "Build finished. The text files are in $(DOCS_BUILDDIR)/text."
 
 man:
-	$(SPHINXBUILD) -b man $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/man
+	$(SPHINXBUILD) -b man $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/man
 	@echo
 	@echo "Build finished. The manual pages are in $(DOCS_BUILDDIR)/man."
 
 texinfo:
-	$(SPHINXBUILD) -b texinfo $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/texinfo
+	$(SPHINXBUILD) -b texinfo $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/texinfo
 	@echo
 	@echo "Build finished. The Texinfo files are in $(DOCS_BUILDDIR)/texinfo."
 	@echo "Run \`make' in that directory to run these through makeinfo" \
 	      "(use \`make info' here to do that automatically)."
 
 info:
-	$(SPHINXBUILD) -b texinfo $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/texinfo
+	$(SPHINXBUILD) -b texinfo $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/texinfo
 	@echo "Running Texinfo files through makeinfo..."
 	make -C $(DOCS_BUILDDIR)/texinfo info
 	@echo "makeinfo finished; the Info files are in $(DOCS_BUILDDIR)/texinfo."
 
 gettext:
-	$(SPHINXBUILD) -b gettext $(I18NSPHINXOPTS) $(DOCS_BUILDDIR)/locale
+	$(SPHINXBUILD) -b gettext $(I18NSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/locale
 	@echo
 	@echo "Build finished. The message catalogs are in $(DOCS_BUILDDIR)/locale."
 
 changes:
-	$(SPHINXBUILD) -b changes $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/changes
+	$(SPHINXBUILD) -b changes $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/changes
 	@echo
 	@echo "The overview file is in $(DOCS_BUILDDIR)/changes."
 
 linkcheck:
-	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/linkcheck
+	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/linkcheck
 	@echo
 	@echo "Link check complete; look for any errors in the above output " \
 	      "or in $(DOCS_BUILDDIR)/linkcheck/output.txt."
 
 doctest:
-	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(DOCS_BUILDDIR)/doctest
+	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(DOCS_SRC) $(DOCS_BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(DOCS_BUILDDIR)/doctest/output.txt."
