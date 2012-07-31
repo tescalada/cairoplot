@@ -1,7 +1,7 @@
 :py:mod:`series` --- modelling CairoPlot's input
 ================================================
 
-.. module:: series
+.. module:: cairoplot.series
    :synopsis: Modelling CairoPlot's input..
 
 The :py:mod:`series` contains three classes used to model the data input
